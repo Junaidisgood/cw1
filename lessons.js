@@ -20,7 +20,7 @@ let lessons = [
     {
         "id": 03,
         "subject": 'Biology',
-        "location": "Malta",
+        "location": "Hendon",
         "price": 10000,
         "image": "img/biology.jpg",
         "availableInventory":5,
@@ -47,7 +47,7 @@ let lessons = [
     {
         "id": 06,
         "subject": 'Law',
-        "location": "Malta",
+        "location": "Hendon",
         "price": 10000,
         "image": "img/law.jpg",
         "availableInventory":5,
@@ -74,7 +74,7 @@ let lessons = [
     {
         "id": 09,
         "subject": 'Math',
-        "location": "Malta",
+        "location": "Hendon",
         "price": 10000,
         "image": "img/math.jpg",
         "availableInventory":5,
