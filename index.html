@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>Lesson Store</title>
         <!-- bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <!-- vuejs -->
@@ -13,10 +13,13 @@
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../css/fontawesome.css">
         <script src="../js/vue.js"></script>
+
         <script src="lessons.js"></script>
     </head>
     <body>
         <div id="app">
+
+            <!-- PRODUCTS PAGE -->
             <div v-if="shop">
                 <div class="row mt-1">
                     <div class="col-10">
@@ -82,7 +85,6 @@
                     </div>
                 </div>
             </div>
-            <!-- PRODUCTS PAGE -->
             
             <!-- CHECKOUT PAGE -->
             <div v-else>
@@ -97,15 +99,15 @@
                 <form>
                     <div class="row m-5">
                         <div class="form-group col-4">
-                            <label>First Name:</label>
-                            <input v-model="order.fullname" class="form-control border-top-0 border-left-0 border-right-0">
+                            <input v-model="order.fullname" class="form-control border-top-0 border-left-0 border-right-0" placeholder="Fullname">
                         </div>
                         <div class="form-group col-4">
-                            <label>Phone:</label>
-                            <input v-model.number="order.phone" class="form-control border-top-0 border-left-0 border-right-0">
+                            <input v-model.number="order.phone" class="form-control border-top-0 border-left-0 border-right-0" placeholder="Phone">
                         </div>
                         <div class="form-group col-4">
-                            <button class="btn btn-primary mt-4">Checkout</button>
+                            <button class="btn btn-primary" v-if="checkoutBtn">Checkout</button>
+
+                            <button class="btn btn-secondary" disabled v-else>Checkout</button>
                         </div>
                     </div>
                 </form>
@@ -142,13 +144,32 @@
                         },
                         showCheckout() {
                             this.shop = this.shop ? false : true;
-                        }
+                        },
+                        
                     },
                     computed: {
-                        cartItemCount: function () { //the property name
-                            //its value is calculated when it is called
+                        cartItemCount: function () {
                             return this.cart.length;
                         },
+                        checkoutBtn() {
+                            if (this.order.fullname && this.order.phone) {
+                                return true
+                            }
+                            else {
+                                return false
+                            }
+                        },
+                        sortedProducts() {
+                            let lessonsArray = this.lessons.slice(0);
+                            function comparePrice(a, b) {
+                                if (a.price > b.price)
+                                    return 1
+                                if (a.price < b.price)
+                                    return -1
+                                return 0
+                            }
+                            return lessonsArray.sort(comparePrice)
+                        }
                     }
                 })
         </script>
