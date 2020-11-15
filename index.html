@@ -9,11 +9,6 @@
         <!-- fontawesome -->
         <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <!-- local files -->
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="../css/fontawesome.css">
-        <script src="../js/vue.js"></script>
-
         <script src="lessons.js"></script>
     </head>
     <body>
@@ -26,9 +21,9 @@
                         <h1 class="text-center">{{ sitename }}</h1>
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-success" v-on:click="showCheckout" v-if="cartItemCount > 0">{{cartItemCount}} Checkout</button>
+                        <button class="btn btn-success" v-on:click="showCheckout" v-if="cartItemCount > 0">{{cartItemCount}} <i class="fas fa-cart-plus"></i> Checkout</button>
 
-                        <button class="btn btn-secondary disabled" disabled v-else>{{cartItemCount}} Checkout</button>
+                        <button class="btn btn-secondary disabled" disabled v-else>{{cartItemCount}} <i class="fas fa-cart-plus"></i> Checkout</button>
                     </div>
                 </div>
                 <div>
@@ -37,31 +32,31 @@
                             <h4>Sort by:</h4>
                             <fieldset>
                                 <label>
-                                    <input v-model="sort" type="radio" name="Sort" value="price" v-on:click="sortedLessons('price', ord)">Price
+                                    <input v-model="sort" type="radio" name="Sort" value="price" v-on:click="sortedLessons('price', ord)"> Price
                                 </label><br>
                                 <label>
-                                    <input v-model="sort" type="radio" name="Sort" value="subj">Subject
+                                    <input v-model="sort" type="radio" name="Sort" value="subj"> Subject
                                 </label><br>
                                 <label>
-                                    <input v-model="sort" type="radio" name="Sort" value="loc">Location
+                                    <input v-model="sort" type="radio" name="Sort" value="loc"> Location
                                 </label><br>
                                 <label>
-                                    <input v-model="sort" type="radio" name="Sort" value="avail">Availability
+                                    <input v-model="sort" type="radio" name="Sort" value="avail"> Availability
                                 </label><br>
                             </fieldset>
 
                             <h4 class="mt-5">Order</h4>
                             <fieldset>
                                 <label>
-                                    <input v-model="ord" type="radio" name="Order" value="asc">Ascending
+                                    <input v-model="ord" type="radio" name="Order" value="asc"> Ascending
                                 </label><br>
                                 <label>
-                                    <input type="radio" name="Order" value="des" v-model="ord">Descending
+                                    <input type="radio" name="Order" value="des" v-model="ord"> Descending
                                 </label><br>
                             </fieldset>
                             
                         </div>
-                        <div class="col-10">
+                        <div class="col-10 pl-0 pr-3">
                             <div class="row">
                                 <div class="col-3 mb-3" v-for="lesson in sortedLessons(sort, ord)">
                                     <div class="card">
@@ -93,20 +88,22 @@
                         <h1 class="text-center">Checkout</h1>
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-success" v-on:click="showCheckout">{{cartItemCount}} Lessons</button>
+                        <button class="btn btn-success" v-on:click="showCheckout">{{cartItemCount}} <i class="fas fa-cart-plus"></i> Lessons</button>
                     </div>
                 </div>
                 <div>
-                    <h2 class="text-center">Cart</h2>
                     <div>
                         <ul class="list-group">
                             <li class="list-group-item" v-for="lesson in cart">
                                 <div class="row">
-                                    <div class="col-3">
-                                        <img v-bind:src="lesson.image" style="height: 25px;width: 25px;">
+                                    <div class="col-4">
+                                        <img v-bind:src="lesson.image" style="height: 30px;width: 30px;">
                                     </div>
-                                    <div class="col-5">
+                                    <div class="col-6">
                                         <p>{{lesson.subject}}</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <span style="cursor: pointer;" class="text-danger" v-on:click="removeFromCart(lesson)" ><b>x</b></span>
                                     </div>
                                 </div>
                             </li>
@@ -116,7 +113,7 @@
                 <form>
                     <div class="row m-5">
                         <div class="form-group col-4">
-                            <input v-model="order.fullname" class="form-control border-top-0 border-left-0 border-right-0" placeholder="Fullname">
+                            <input v-model="order.fullname" class="form-control border-top-0 border-left-0 border-right-0" placeholder="Full Name">
                         </div>
                         <div class="form-group col-4">
                             <input v-model.number="order.phone" class="form-control border-top-0 border-left-0 border-right-0" placeholder="Phone">
@@ -150,7 +147,7 @@
                             this.cart.push(lesson);
                         },
                         removeFromCart: function (lesson){
-                            this.cart
+                            this.cart.splice(this.cart.indexOf(lesson))
                         },
                         cartCount(id) {
                             let count = 0;
