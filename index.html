@@ -132,7 +132,7 @@
                     el: "#app",
                     data: {
                         sitename: "Lessons Store",
-                        lessons: lessons,
+                        lessons: [],
                         cart: [],
                         order: {
                             fullname: '',
@@ -276,6 +276,21 @@
                             else {
                                 return false
                             }
+                        }
+                    },
+                    created:{
+                        function() {
+                            console.log("requesting data from server....");
+                            fetch("http://localhost:4000/lessons").then(
+                                function (res) {
+                                    res.json().then(
+                                        function (json) {
+                                            app.lessons = json;
+                                            console.log(json);
+                                        }
+                                    )
+                                }
+                            )
                         }
                     }
                 })
