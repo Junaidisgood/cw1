@@ -285,7 +285,7 @@
                                 function (res) {
                                     res.json().then(
                                         function (json) {
-                                            app.lessons = json;
+                                            lessonStore.lessons = json;
                                             console.log(json);
                                         }
                                     )
