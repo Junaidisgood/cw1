@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-10 pl-0 pr-3">
                             <div class="row">
-                                <div class="col-3 mb-3" v-for="lesson in lessons">
+                                <div class="col-3 mb-3" v-for="lesson in sortedLessons(sort, ord)">
                                     <div class="card">
                                         <img v-bind:src="lesson.image" style="height: 200px;">
                                         <div class="card-body">
