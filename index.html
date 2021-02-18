@@ -128,12 +128,12 @@
             </div>
         </div>
         <script>
-            var lessonStore = new Vue({
+            let lessonStore = new Vue({
                     el: "#app",
                     data: {
                         sitename: "Lessons Store",
                         cart: [],
-                        lessons: [],
+                        lessons: {},
                         order: {
                             fullname: '',
                             phone: ''
