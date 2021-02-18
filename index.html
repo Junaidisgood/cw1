@@ -142,6 +142,20 @@
                         sort: "subj",
                         ord: "asc"
                     },
+                    created: {
+                    function() {
+                        console.log("requesting data from server....");
+                        fetch("https://junaid-cw-2.herokuapp.com/collection/lessons").then(
+                            function (res) {
+                                res.json().then(
+                                    function (json) {
+                                        lessonStore.lessons = json;
+                                    }
+                                )
+                            }
+                        )
+                    }
+                },
                     methods: {
                         addToCart: function (lesson) {
                             this.cart.push(lesson);
@@ -265,20 +279,7 @@
                         }
                         
                     },
-                    created:{
-                        function() {
-                            console.log("requesting data from server....");
-                            fetch("https://junaid-cw-2.herokuapp.com/collection/lessons").then(
-                                function (res) {
-                                    res.json().then(
-                                        function (json) {
-                                            lessonStore.lessons = json;
-                                        }
-                                    )
-                                }
-                            )
-                        }
-                    },
+                    
                     computed: {
                         cartItemCount: function () {
                             return this.cart.length;
