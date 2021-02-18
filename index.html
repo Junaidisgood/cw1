@@ -145,7 +145,6 @@
                     methods: {
                         addToCart: function (lesson) {
                             this.cart.push(lesson);
-                            
                         },
                         removeFromCart: function (lesson){
                             this.cart.splice(this.cart.indexOf(lesson))
@@ -269,7 +268,7 @@
                     created:{
                         function() {
                             console.log("requesting data from server....");
-                            fetch("https://junaid-cw-2.herokuapp.com").then(
+                            fetch("https://junaid-cw-2.herokuapp.com/collection/lessons").then(
                                 function (res) {
                                     res.json().then(
                                         function (json) {
