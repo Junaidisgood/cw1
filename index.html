@@ -143,22 +143,24 @@
                         ord: "asc",
                         space: lesson.availableInventory - cartCount(lesson)
                     },
+                    created:{
+                        function() {
+                            console.log("requesting data from server....");
+                            fetch("https://junaid-cw-2.herokuapp.com/collection/lessons").then(
+                                function (res) {
+                                    res.json().then(
+                                        function (json) {
+                                            lessonStore.lessons = json;
+                                        }
+                                    )
+                                }
+                            )
+                        }
+                    },
                     methods: {
                         addToCart: function (lesson) {
                             this.cart.push(lesson);
-                            const newOrder = { title: 'lesson.title', price: lesson.price };
-                            // set the url to your server and route
-                            fetch('https://junaid-cw-2.herokuapp.com/collection/lessons', {
-                                method: 'POST', 
-                                // set the HTTP method as 'POST'
-                                headers: {'Content-Type': 'application/json', 
-                                // set the data type as JSON  
-                                },
-                                body: JSON.stringify(newOrder),
-                                // need to stringify the JSON object
-                            })
-                            .then(response => response.json())
-                            .then(responseJSON => {console.log('Success:', responseJSON);});
+                            
                         },
                         removeFromCart: function (lesson){
                             this.cart.splice(this.cart.indexOf(lesson))
@@ -290,20 +292,6 @@
                             else {
                                 return false
                             }
-                        }
-                    },
-                    created:{
-                        function() {
-                            console.log("requesting data from server....");
-                            fetch("https://junaid-cw-2.herokuapp.com/collection/lessons").then(
-                                function (res) {
-                                    res.json().then(
-                                        function (json) {
-                                            lessonStore.lessons = json;
-                                        }
-                                    )
-                                }
-                            )
                         }
                     }
                 })
